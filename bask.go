@@ -2,6 +2,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"html/template"
 	"io"
@@ -12,13 +13,26 @@ import (
 const version = "0.1"
 
 func main() {
-	fmt.Fprintf(os.Stderr, "help\n")
-	usage()
+	flag.Usage = usage
+	flag.Parse()
 
-	//	os.Exit(2)
+	args := flag.Args()
+	if len(args) < 1 {
+		usage()
+	}
+
+	if args[0] == "help" {
+		//		help(args[1:])
+		return
+	}
+
+	fmt.Fprintf(os.Stderr, "help\n")
+	//	usage()
+
+	os.Exit(2)
 }
 
-var usageTemplate = `Bask is a tool for managing android framework.
+var usageTemplate = `Bask is a tool for managing android application.
 
 Usage:
 
